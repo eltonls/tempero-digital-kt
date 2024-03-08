@@ -2,4 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="red">#F24B59</color>
+    <color name="eerie_black">#191F26</color>
+    <color name="alice_blue">#D8E3F2</color>
+    <color name="tangerine">#F28705</color>
+    <color name="melon">#F2B3B3</color>
+    <color name="eerie_black_high">#30353D</color>
 </resources>

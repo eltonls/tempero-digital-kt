@@ -3,5 +3,12 @@
     <style name="Base.Theme.TemperoDigital" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/eerie_black</item>
+        <item name="colorSecondary">@color/red</item>
+        <item name="colorTertiary">@color/alice_blue</item>
+        <item name="colorBackgroundFloating">@color/eerie_black_high</item>
+        <item name="title">#F8E4C5</item>
     </style>
+
+    <style name="Theme.TemperoDigital" parent="Base.Theme.TemperoDigital" />
 </resources>
