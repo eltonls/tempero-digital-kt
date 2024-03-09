@@ -1,0 +1,234 @@
+{
+  "sections": [
+    {
+      "name": "Pratos de Entrada",
+      "items": [
+        {
+          "name": "Bruschetta",
+          "price": 18.90,
+          "imageUrl": "https://i.ibb.co/2SnJB6q/Bruschetta.jpg",
+          "desc": "Pão italiano tostado com tomate fresco, alho e manjericão.",
+          "time": 10
+        },
+        {
+          "name": "Carpaccio",
+          "price": 22.50,
+          "imageUrl": "https://i.ibb.co/hBZpf3G/Carpaccio.jpg",
+          "desc": "Finas fatias de carne bovina crua, servidas com molho de alcaparras, mostarda e queijo parmesão.",
+          "time": 15
+        },
+        {
+          "name": "Camarão Empanado",
+          "price": 29.90,
+          "imageUrl": "https://i.ibb.co/ydcjVbD/Camarao-Empanado.jpg",
+          "desc": "Camarões empanados e fritos, acompanhados de molho tártaro.",
+          "time": 20
+        },
+        {
+          "name": "Sopa de Cebola",
+          "price": 16.50,
+          "imageUrl": "https://i.ibb.co/hBByv16/Sopa-de-Cebola.jpg",
+          "desc": "Sopa tradicional francesa à base de cebolas caramelizadas, servida com croutons e queijo gratinado.",
+          "time": 25
+        }
+      ]
+    },
+    {
+      "name": "Pratos Principais",
+      "items": [
+        {
+          "name": "Filé Mignon",
+          "price": 45.00,
+          "imageUrl": "https://i.ibb.co/4VvG9zj/File-mignon.jpg",
+          "desc": "Filé mignon grelhado acompanhado de batatas assadas e legumes.",
+          "time": 30
+        },
+        {
+          "name": "Risoto de Funghi",
+          "price": 35.00,
+          "imageUrl": "https://i.ibb.co/wKhN60Q/risotto.jpg",
+          "desc": "Risoto cremoso de cogumelos funghi com queijo parmesão.",
+          "time": 25
+        },
+        {
+          "name": "Picanha",
+          "price": 50.00,
+          "imageUrl": "url_da_imagem_picanha",
+          "desc": "Picanha suculenta grelhada, servida com arroz, feijão tropeiro e vinagrete.",
+          "time": 35
+        },
+        {
+          "name": "Frango à Parmegiana",
+          "price": 38.00,
+          "imageUrl": "https://i.ibb.co/Wx27yQ2/Frango-a-Parmegiana.jpg",
+          "desc": "Filé de frango empanado e frito, coberto com molho de tomate e queijo, acompanhado de espaguete ao alho e óleo.",
+          "time": 40
+        },
+        {
+          "name": "Salada Caesar",
+          "price": 28.00,
+          "imageUrl": "https://i.ibb.co/pJr9q0N/salada-cesar.jpg",
+          "desc": "Salada clássica com alface romana, croutons, parmesão, bacon e molho Caesar.",
+          "time": 15
+        },
+        {
+          "name": "Lasanha à Bolonhesa",
+          "price": 32.00,
+          "imageUrl": "https://i.ibb.co/GsFkMsd/lasanha-bolhonesa.jpg",
+          "desc": "Lasanha tradicional de carne moída com molho bolonhesa e queijo gratinado.",
+          "time": 40
+        },
+        {
+          "name": "Ravioli de Ricota e Espinafre",
+          "price": 37.00,
+          "imageUrl": "https://i.ibb.co/Dkkpp02/ravioli.jpg",
+          "desc": "Ravioli recheado com ricota e espinafre, servido com molho de tomate e manjericão.",
+          "time": 20
+        },
+        {
+          "name": "Moqueca de Peixe",
+          "price": 42.00,
+          "imageUrl": "https://i.ibb.co/Sx6gxV5/moqueca-de-peixe.jpg",
+          "desc": "Moqueca de peixe com leite de coco, pimentões, tomate e cebola, acompanhada de arroz branco.",
+          "time": 35
+        },
+        {
+          "name": "Espaguete à Carbonara",
+          "price": 34.00,
+          "imageUrl": "https://i.ibb.co/TcR2NbP/espaguete-carbonara.jpg",
+          "desc": "Espaguete com molho à base de ovos, queijo parmesão, pancetta e pimenta preta.",
+          "time": 25
+        },
+        {
+          "name": "Bife à Milanesa",
+          "price": 40.00,
+          "imageUrl": "https://i.ibb.co/gPc6jtx/Bife-a-milanesa.jpg",
+          "desc": "Bife empanado e frito, acompanhado de arroz, feijão, batata frita e salada.",
+          "time": 35
+        },
+        {
+          "name": "Macarrão à Puttanesca",
+          "price": 30.00,
+          "imageUrl": "https://i.ibb.co/QpSw79S/macarrao-a-putanesca.jpg",
+          "desc": "Macarrão com molho de tomate, aliche, alcaparras, azeitonas e alho.",
+          "time": 20
+        },
+        {
+          "name": "Camarão na Moranga",
+          "price": 48.00,
+          "imageUrl": "https://i.ibb.co/dW4n5pq/camarao-na-moranga.jpg",
+          "desc": "Camarões refogados e temperados, servidos dentro de uma moranga com requeijão.",
+          "time": 40
+        },
+        {
+          "name": "Feijoada Completa",
+          "price": 40.00,
+          "imageUrl": "https://i.ibb.co/7GNyDDq/feijoada.jpg",
+          "desc": "Feijoada tradicional com carne seca, linguiça, carne de porco, acompanhada de arroz, farofa, couve e laranja.",
+          "time": 50
+        }
+      ]
+    },
+    {
+      "name": "Bebidas",
+      "items": [
+        {
+          "name": "Caipirinha",
+          "price": 15.00,
+          "imageUrl": "https://i.ibb.co/GHgnKR5/capirinha.jpg",
+          "desc": "Caipirinha tradicional com limão, açúcar e cachaça.",
+          "time": 5
+        },
+        {
+          "name": "Suco de Laranja",
+          "price": 8.00,
+          "imageUrl": "https://i.ibb.co/YBGMm8z/suco-de-laranja.jpg",
+          "desc": "Suco natural de laranja.",
+          "time": 3
+        },
+        {
+          "name": "Água Mineral",
+          "price": 5.00,
+          "imageUrl": "url_da_imagem_agua_mineral",
+          "desc": "Água mineral sem gás.",
+          "time": 0
+        },
+        {
+          "name": "Vinho Tinto",
+          "price": 40.00,
+          "imageUrl": "https://i.ibb.co/h70Xznq/vinho.jpg",
+          "desc": "Vinho tinto seco de qualidade.",
+          "time": 10
+        },
+        {
+          "name": "Cerveja Artesanal",
+          "price": 12.00,
+          "imageUrl": "url_da_imagem_cerveja_artesanal",
+          "desc": "Cerveja artesanal local.",
+          "time": 5
+        }
+      ]
+    },
+    {
+      "name": "Sobremesas",
+      "items": [
+        {
+          "name": "Tiramisù",
+          "price": 20.00,
+          "imageUrl": "https://i.ibb.co/hBBszGm/tiramisu.jpg",
+          "desc": "Sobremesa italiana clássica à base de café, queijo mascarpone e biscoitos champanhe.",
+          "time": 15
+        },
+        {
+          "name": "Mousse de Chocolate",
+          "price": 18.00,
+          "imageUrl": "https://i.ibb.co/YbFjtJM/mousse.jpg",
+          "desc": "Deliciosa mousse de chocolate.",
+          "time": 10
+        },
+        {
+          "name": "Cheesecake de Frutas Vermelhas",
+          "price": 22.00,
+          "imageUrl": "https://i.ibb.co/XZ1jBxv/cheesecake.jpg",
+          "desc": "Cheesecake com cobertura de geleia de frutas vermelhas.",
+          "time": 20
+        },
+        {
+          "name": "Pudim de Leite Condensado",
+          "price": 16.00,
+          "imageUrl": "https://i.ibb.co/j8XhQjd/pudim.jpg",
+          "desc": "Pudim cremoso feito com leite condensado e ovos, coberto com calda de caramelo.",
+          "time": 30
+        },
+        {
+          "name": "Torta de Limão",
+          "price": 19.00,
+          "imageUrl": "https://i.ibb.co/zndSSjM/lemon.jpg",
+          "desc": "Torta refrescante com recheio de creme de limão e cobertura de merengue.",
+          "time": 25
+        },
+        {
+          "name": "Sorvete de Baunilha",
+          "price": 12.00,
+          "imageUrl": "https://i.ibb.co/XXZQ7r4/ice-cream.jpg",
+          "desc": "Sorvete cremoso de baunilha.",
+          "time": 5
+        },
+        {
+          "name": "Creme Brûlée",
+          "price": 25.00,
+          "imageUrl": "https://i.ibb.co/FVRMjch/creme.jpg",
+          "desc": "Creme de baunilha coberto com açúcar caramelizado.",
+          "time": 40
+        },
+        {
+          "name": "Torta de Maçã",
+          "price": 21.00,
+          "imageUrl": "https://i.ibb.co/3B73dhY/apple-pie.jpg",
+          "desc": "Torta de maçã com recheio suculento e cobertura de farofa doce.",
+          "time": 35
+        }
+      ]
+    }
+  ]
+}
