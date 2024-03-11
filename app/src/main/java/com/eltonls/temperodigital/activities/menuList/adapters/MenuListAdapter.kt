@@ -11,6 +11,7 @@ import com.eltonls.temperodigital.models.MenuList
 
 class MenuListAdapter(
     private val menu: MenuList,
+    val clickListener: MenuListRecyclerViewClickListener
 ) : RecyclerView.Adapter<MenuListViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuListViewHolder {
         val binding =
@@ -30,7 +31,7 @@ class MenuListAdapter(
                     LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
 
                 binding.textMenuSectionTitle.text = this.name
-                binding.recyclerMenuListSection.adapter = MenuListSectionAdapter(this)
+                binding.recyclerMenuListSection.adapter = MenuListSectionAdapter(this, clickListener)
                 binding.recyclerMenuListSection.layoutManager = layoutManagerHorizontal
             }
         }

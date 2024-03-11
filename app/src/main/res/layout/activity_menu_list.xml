@@ -13,9 +13,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/menu_list_recycler_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="70dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
