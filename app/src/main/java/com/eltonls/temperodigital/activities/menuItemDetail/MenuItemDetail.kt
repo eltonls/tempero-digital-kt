@@ -1,5 +1,6 @@
 package com.eltonls.temperodigital.activities.menuItemDetail
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,6 +18,7 @@ import java.text.NumberFormat
 import java.util.Locale
 
 class MenuItemDetail : AppCompatActivity(), MenuItemDetailClickListener {
+    private var counter: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Bind the activity layout
@@ -42,6 +44,10 @@ class MenuItemDetail : AppCompatActivity(), MenuItemDetailClickListener {
             onRemoveCounterMenuItemClick(counter)
         }
 
+        binding.buttonMenuItemDetailAddToCart.setOnClickListener {
+            onAddToCartMenuItemClick(menuItem!!)
+        }
+
         // Show menu item detail
         binding.textMenuItemDetailName.text = menuItem?.name
         binding.textMenuItemDetailDesc.text = menuItem?.desc
@@ -59,14 +65,21 @@ class MenuItemDetail : AppCompatActivity(), MenuItemDetailClickListener {
 
     override fun onAddCounterMenuItemClick(item: TextInputEditText) {
         item.text = Editable.Factory.getInstance().newEditable((item.text.toString().toInt() + 1).toString())
+        counter++
     }
 
     override fun onRemoveCounterMenuItemClick(item: TextInputEditText) {
         if (item.text.toString().toInt() > 0) {
             item.text = Editable.Factory.getInstance().newEditable((item.text.toString().toInt() - 1).toString())
+            counter--
         }
     }
 
-    override fun onAddToCartMenuItemClick(menuItem: MenuItem) {
+    override fun onAddToCartMenuItemClick(menuItem: MenuListItem) {
+        val newCartItem = MenuListItem(menuItem.name, menuItem.price, menuItem.imageUrl, menuItem.desc, menuItem.time, counter)
+        val resultIntent = Intent()
+        resultIntent.putExtra(MenuListActivity.INTENT_EXTRA_NEW_CART_ITEM, newCartItem)
+        setResult(RESULT_OK, resultIntent)
+        finish()
     }
 }

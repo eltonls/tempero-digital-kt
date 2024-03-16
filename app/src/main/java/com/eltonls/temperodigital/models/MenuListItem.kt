@@ -8,13 +8,15 @@ class MenuListItem(
     val price: Float,
     val imageUrl: String,
     val desc: String,
-    val time: Int
+    val time: Int,
+    val quantity: Int
 ) : Parcelable {
     constructor(source: Parcel) : this (
         source.readString()!!,
         source.readFloat(),
         source.readString()!!,
         source.readString()!!,
+        source.readInt(),
         source.readInt()
     )
 
@@ -26,6 +28,7 @@ class MenuListItem(
         dest.writeString(imageUrl)
         dest.writeString(desc)
         dest.writeInt(time)
+        dest.writeInt(quantity)
     }
 
     companion object CREATOR : Parcelable.Creator<MenuListItem> {

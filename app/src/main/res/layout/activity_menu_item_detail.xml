@@ -70,14 +70,15 @@
         app:layout_constraintTop_toBottomOf="@id/text_menu_item_detail_desc" />
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
+        style="@style/Theme.TemperoDigital"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/image_menu_item_detail"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="4dp"
         android:background="@drawable/button_background"
-        >
+        app:cardCornerRadius="40dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image_menu_item_detail">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -90,29 +91,28 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="#00FFFFFF"
-                app:tint="?attr/colorTertiary"
-                android:src="@drawable/remove_icon" />
+                android:src="@drawable/remove_icon"
+                app:tint="?attr/colorTertiary" />
 
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textinput_counter"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:text="0"
-                android:textColor="?attr/colorTertiary"
-                android:inputType="number"
                 android:fontFamily="@font/quicksand"
-                android:textSize="18sp"
+                android:inputType="number"
+                android:text="0"
                 android:textAlignment="center"
-                />
+                android:textColor="?attr/colorTertiary"
+                android:textSize="18sp" />
 
             <ImageButton
                 android:id="@+id/button_menu_item_detail_add"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="#00FFFFFF"
-                app:tint="?attr/colorTertiary"
-                android:src="@drawable/add_icon" />
+                android:src="@drawable/add_icon"
+                app:tint="?attr/colorTertiary" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

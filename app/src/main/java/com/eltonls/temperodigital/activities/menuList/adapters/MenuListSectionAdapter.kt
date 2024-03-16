@@ -38,7 +38,7 @@ class MenuListSectionAdapter(
         with(holder) {
             with(menuList.items[position]) {
                 binding.root.setOnClickListener {
-                    clickListener.onMenuItemClick(this)
+                    clickListener.onMenuItemClick(it, this)
                 }
                 binding.textMenuListItemName.text = this.name
                 binding.textMenuListItemDesc.text = this.desc
