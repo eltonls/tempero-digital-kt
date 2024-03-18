@@ -1,14 +1,20 @@
 package com.eltonls.temperodigital.activities.menuList
 
+import android.app.ActionBar
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.LinearLayout
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.os.bundleOf
+import androidx.fragment.app.add
+import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eltonls.temperodigital.R
 import com.eltonls.temperodigital.activities.cart.CartActivity
@@ -16,6 +22,8 @@ import com.eltonls.temperodigital.activities.menuItemDetail.MenuItemDetail
 import com.eltonls.temperodigital.activities.menuList.adapters.MenuListAdapter
 import com.eltonls.temperodigital.activities.menuList.adapters.MenuListRecyclerViewClickListener
 import com.eltonls.temperodigital.databinding.ActivityMenuListBinding
+import com.eltonls.temperodigital.databinding.ToolbarMainBinding
+import com.eltonls.temperodigital.fragments.CardCartFragment
 import com.eltonls.temperodigital.models.Cart
 import com.eltonls.temperodigital.models.MenuList
 import com.eltonls.temperodigital.models.MenuListItem
@@ -53,20 +61,22 @@ class MenuListActivity : AppCompatActivity(), MenuListRecyclerViewClickListener 
         menuListRecyclerView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        binding.buttonMenuCartOpen.setOnClickListener {
-            this.openCart()
-        }
+
+
+        showCustomToolbar()
     }
 
     override fun onMenuItemClick(view: View, payload: MenuListItem) {
 
-        when(view.id) {
+        when (view.id) {
             R.id.card_menu_list_item -> {
                 showMenuItemDetail(payload)
             }
+
+            /*
             R.id.button_menu_cart_open -> {
                 openCart()
-            }
+            } */
         }
     }
 
@@ -74,8 +84,7 @@ class MenuListActivity : AppCompatActivity(), MenuListRecyclerViewClickListener 
         if (result.resultCode == RESULT_OK) {
             val newMenuItem = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 result.data?.getParcelableExtra(
-                    INTENT_EXTRA_NEW_CART_ITEM,
-                    MenuListItem::class.java
+                    INTENT_EXTRA_NEW_CART_ITEM, MenuListItem::class.java
                 )
             } else {
                 // Deprecated in SDK 33
@@ -84,6 +93,8 @@ class MenuListActivity : AppCompatActivity(), MenuListRecyclerViewClickListener 
 
             cart.items.add(newMenuItem!!)
             cart.totalPrice = cart.totalPrice + (newMenuItem.price * newMenuItem.quantity)
+
+            showCartCard()
         }
     }
 
@@ -103,9 +114,30 @@ class MenuListActivity : AppCompatActivity(), MenuListRecyclerViewClickListener 
         launcher.launch(menuItemIntent)
     }
 
-    private fun openCart() {
+    fun openCart() {
         val cartIntent = Intent(this, CartActivity::class.java)
         cartIntent.putExtra(INTENT_EXTRA_CART, cart)
         launcher.launch(cartIntent)
+    }
+
+    private fun showCartCard() {
+        if(cart.items.size > 0) {
+            val totalPriceBundle = bundleOf("totalPrice" to cart.totalPrice)
+            supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                add<CardCartFragment>(R.id.fragment_card_cart_container, args = totalPriceBundle)
+            }
+        }
+    }
+
+    private fun showCustomToolbar() {
+        val toolbarBinding = ToolbarMainBinding.inflate(layoutInflater)
+
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.icon_cart)
+        supportActionBar?.title = R.string.app_name.toString()
+        supportActionBar?.setCustomView(toolbarBinding.root)
     }
 }
