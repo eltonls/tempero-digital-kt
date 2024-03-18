@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import com.eltonls.temperodigital.CustomBar
 import com.eltonls.temperodigital.R
 import com.eltonls.temperodigital.activities.cart.adapters.CartListAdapter
 import com.eltonls.temperodigital.activities.menuList.MenuListActivity
@@ -31,5 +32,9 @@ class CartActivity : AppCompatActivity() {
         val cartListRecyclerView = binding.recyclerViewCart
         cartListRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         cartListRecyclerView.adapter = CartListAdapter(cartItems!!)
+
+        // Set up the toolbar
+        val customBar = CustomBar()
+        customBar.showCustomToolbar(this, binding.toolbar)
     }
 }

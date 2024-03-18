@@ -1,6 +1,7 @@
 package com.eltonls.temperodigital.activities.menuList
 
 import android.app.ActionBar
+import android.app.Activity
 import android.content.Intent
 import android.content.res.Resources
 import android.os.Build
@@ -16,6 +17,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.eltonls.temperodigital.CustomBar
 import com.eltonls.temperodigital.R
 import com.eltonls.temperodigital.activities.cart.CartActivity
 import com.eltonls.temperodigital.activities.menuItemDetail.MenuItemDetail
@@ -62,8 +64,9 @@ class MenuListActivity : AppCompatActivity(), MenuListRecyclerViewClickListener 
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
 
-
-        showCustomToolbar()
+        // Set up the toolbar
+        val customBar = CustomBar()
+        customBar.showCustomToolbar(this, binding.toolbar)
     }
 
     override fun onMenuItemClick(view: View, payload: MenuListItem) {
@@ -128,16 +131,5 @@ class MenuListActivity : AppCompatActivity(), MenuListRecyclerViewClickListener 
                 add<CardCartFragment>(R.id.fragment_card_cart_container, args = totalPriceBundle)
             }
         }
-    }
-
-    private fun showCustomToolbar() {
-        val toolbarBinding = ToolbarMainBinding.inflate(layoutInflater)
-
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.icon_cart)
-        supportActionBar?.title = R.string.app_name.toString()
-        supportActionBar?.setCustomView(toolbarBinding.root)
     }
 }

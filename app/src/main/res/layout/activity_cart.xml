@@ -7,26 +7,49 @@
     android:fitsSystemWindows="true"
     tools:context=".activities.cart.CartActivity">
 
-    <com.google.android.material.appbar.MaterialToolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:title="@string/app_name"
-        app:titleCentered="true"
-        app:titleTextAppearance="@style/Theme.TemperoDigital"
+        android:background="?attr/colorPrimary"
         >
-    </com.google.android.material.appbar.MaterialToolbar>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:layout_gravity="center"
+            android:fontFamily="@font/pacifico"
+            android:textSize="20sp"
+            android:textColor="?attr/colorSecondary"
+            />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_cart"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/button_cart_finish"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_cart_finish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="@string/finalizar_pedido"
+        android:textSize="18sp"
+        android:background="@drawable/button_background"
+        android:backgroundTint="?attr/colorSecondary"
+        android:textColor="?attr/colorTertiary"
+        android:fontFamily="@font/quicksand"
         />
 
 
