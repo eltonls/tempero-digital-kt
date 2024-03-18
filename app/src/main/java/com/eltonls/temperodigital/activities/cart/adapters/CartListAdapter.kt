@@ -6,13 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.eltonls.temperodigital.R
+import com.eltonls.temperodigital.activities.cart.clickListeners.CartActivityClickListener
 import com.eltonls.temperodigital.activities.cart.viewHolders.CartItemViewHolder
 import com.eltonls.temperodigital.databinding.CardCartItemViewHolderBinding
 import com.eltonls.temperodigital.models.Cart
 import com.squareup.picasso.Picasso
 import java.util.Locale
 
-class CartListAdapter(val cart: Cart) : RecyclerView.Adapter<CartItemViewHolder>() {
+class CartListAdapter(val cart: Cart, val clickListener: CartActivityClickListener) : RecyclerView.Adapter<CartItemViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartItemViewHolder {
         val binding =
             CardCartItemViewHolderBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -32,6 +33,11 @@ class CartListAdapter(val cart: Cart) : RecyclerView.Adapter<CartItemViewHolder>
 
                 binding.cardCartCounter.textinputCounter.text = Editable.Factory.getInstance().newEditable(this.quantity.toString())
                 binding.textCartTitle.text = this.name
+                binding.buttonCartDelete.setOnClickListener {
+                    clickListener.onDeleteItem(this)
+                    notifyItemRemoved(position)
+                    notifyItemRangeChanged(absoluteAdapterPosition, itemCount)
+                }
                 binding.textCartObservation.text = this.desc // CHANGE THIS
                 binding.textCartTotalPrice.text = formatter.format(this.price * this.quantity)
 
