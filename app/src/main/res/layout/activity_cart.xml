@@ -50,6 +50,7 @@
         android:backgroundTint="?attr/colorSecondary"
         android:textColor="?attr/colorTertiary"
         android:fontFamily="@font/quicksand"
+        android:textAllCaps="false"
         />
 
 
