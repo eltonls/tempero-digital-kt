@@ -54,9 +54,13 @@ class CartActivity : AppCompatActivity() {
 
         // Set up Finish Order Button
         binding.buttonCartFinish.setOnClickListener {
-            cartItems.items.clear()
-            Toast.makeText(this, "Seu pedido foi enviado à nossa cozinha!", Toast.LENGTH_LONG).show()
-            sendCartData()
+            if(cartItems.items.isEmpty()) {
+                Toast.makeText(this, "Seu carrinho esta vazio!", Toast.LENGTH_LONG).show()
+            } else {
+                cartItems.items.clear()
+                Toast.makeText(this, "Seu pedido foi enviado à nossa cozinha!", Toast.LENGTH_LONG).show()
+                sendCartData()
+            }
         }
     }
 
