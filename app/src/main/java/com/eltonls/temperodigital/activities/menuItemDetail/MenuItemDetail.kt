@@ -7,7 +7,9 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatEditText
 import com.eltonls.temperodigital.R
 import com.eltonls.temperodigital.activities.menuList.MenuListActivity
 import com.eltonls.temperodigital.databinding.ActivityMenuItemDetailBinding
@@ -20,7 +22,7 @@ import java.util.Locale
 class MenuItemDetail : AppCompatActivity(), MenuItemDetailClickListener {
     private var counter: Int = 0
     private lateinit var binding: ActivityMenuItemDetailBinding
-    private lateinit var counterView: TextInputEditText
+    private lateinit var counterView: TextView
     private lateinit var menuItem: MenuListItem
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,37 +31,32 @@ class MenuItemDetail : AppCompatActivity(), MenuItemDetailClickListener {
         setContentView(binding.root)
 
         menuItem = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra<MenuListItem>(
-                MenuListActivity.INTENT_EXTRA_MENU_ITEM,
-                MenuListItem::class.java
+            intent.getParcelableExtra(
+                MenuListActivity.INTENT_EXTRA_MENU_ITEM, MenuListItem::class.java
             )!!
         } else {
             // Deprecated in SDK 33
-            intent.getParcelableExtra<MenuListItem>(MenuListActivity.INTENT_EXTRA_MENU_ITEM)!!
+            intent.getParcelableExtra(MenuListActivity.INTENT_EXTRA_MENU_ITEM)!!
         }
 
-        counterView = binding.cardCounter.textinputCounter
-
-        counterView.text = Editable.Factory.getInstance().newEditable("0")
+        counterView = binding.cardCounter.textCounter
 
         // Show menu item detail
-        binding.textMenuItemDetailName.text = menuItem?.name
-        binding.textMenuItemDetailDesc.text = menuItem?.desc
+        binding.textMenuItemDetailName.text = menuItem.name
+        binding.textMenuItemDetailDesc.text = menuItem.desc
         binding.textMenuItemDetailPrice.text =
-            NumberFormat.getCurrencyInstance(Locale.getDefault()).format(menuItem?.price)
+            NumberFormat.getCurrencyInstance(Locale.getDefault()).format(menuItem.price)
 
         val displayMetrics = binding.root.context.resources.displayMetrics
         val screenWidth = displayMetrics.widthPixels
 
-        Picasso.get().load(menuItem?.imageUrl).resize(screenWidth, 0)
+        Picasso.get().load(menuItem.imageUrl).resize(screenWidth, 0)
             .placeholder(R.drawable.ic_launcher_foreground).into(binding.imageMenuItemDetail)
 
         eventListenersSet()
     }
 
     private fun eventListenersSet() {
-        binding.cardCounter.textinputCounter.addTextChangedListener(onChangeQuantityMenuItem(counterView))
-
         binding.cardCounter.buttonMenuItemDetailAdd.setOnClickListener {
             onAddCounterMenuItemClick(counterView)
         }
@@ -69,36 +66,31 @@ class MenuItemDetail : AppCompatActivity(), MenuItemDetailClickListener {
         }
 
         binding.buttonMenuItemDetailAddToCart.setOnClickListener {
-            onAddToCartMenuItemClick(menuItem!!)
+            onAddToCartMenuItemClick(menuItem)
         }
 
+        binding.textEditObservation.addTextChangedListener(onChangeObservationText(binding.textEditObservation))
     }
 
-    override fun onChangeQuantityMenuItem(item: TextInputEditText): TextWatcher {
+    override fun onChangeObservationText(item: AppCompatEditText): TextWatcher {
         return object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
-                if (s.toString().isEmpty()) {
-                    counter = 0
-                    return
-                }
-                counter = s.toString().toInt()
+                menuItem.observation = s.toString()
             }
         }
     }
 
-    override fun onAddCounterMenuItemClick(item: TextInputEditText) {
-        item.text = Editable.Factory.getInstance()
-            .newEditable((item.text.toString().toInt() + 1).toString())
+    override fun onAddCounterMenuItemClick(item: TextView) {
         counter++
+        item.text = counter.toString()
     }
 
-    override fun onRemoveCounterMenuItemClick(item: TextInputEditText) {
+    override fun onRemoveCounterMenuItemClick(item: TextView) {
         if (item.text.toString().toInt() > 0) {
-            item.text = Editable.Factory.getInstance()
-                .newEditable((item.text.toString().toInt() - 1).toString())
             counter--
+            item.text = counter.toString()
         }
     }
 
@@ -110,7 +102,8 @@ class MenuItemDetail : AppCompatActivity(), MenuItemDetailClickListener {
                 menuItem.imageUrl,
                 menuItem.desc,
                 menuItem.time,
-                counterView.text.toString().toInt()
+                counterView.text.toString().toInt(),
+                menuItem.observation
             )
             val resultIntent = Intent()
             resultIntent.putExtra(MenuListActivity.INTENT_EXTRA_NEW_CART_ITEM, newCartItem)

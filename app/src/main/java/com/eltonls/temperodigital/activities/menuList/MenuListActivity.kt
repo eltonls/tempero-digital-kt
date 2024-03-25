@@ -1,15 +1,11 @@
 package com.eltonls.temperodigital.activities.menuList
 
-import android.app.ActionBar
-import android.app.Activity
 import android.content.Intent
-import android.content.res.Resources
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.LinearLayout
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -24,7 +20,6 @@ import com.eltonls.temperodigital.activities.menuItemDetail.MenuItemDetail
 import com.eltonls.temperodigital.activities.menuList.adapters.MenuListAdapter
 import com.eltonls.temperodigital.activities.menuList.adapters.MenuListRecyclerViewClickListener
 import com.eltonls.temperodigital.databinding.ActivityMenuListBinding
-import com.eltonls.temperodigital.databinding.ToolbarMainBinding
 import com.eltonls.temperodigital.fragments.CardCartFragment
 import com.eltonls.temperodigital.models.Cart
 import com.eltonls.temperodigital.models.MenuList
@@ -34,12 +29,14 @@ import com.google.gson.Gson
 class MenuListActivity : AppCompatActivity(), MenuListRecyclerViewClickListener {
     private lateinit var menuList: MenuList
     private var cart = Cart()
-    private lateinit var launcher: ActivityResultLauncher<Intent>
+    private lateinit var menuItemDetailActivityLauncher: ActivityResultLauncher<Intent>
+    private lateinit var cartActivityLauncher : ActivityResultLauncher<Intent>
     private lateinit var binding: ActivityMenuListBinding
 
     companion object {
         const val INTENT_EXTRA_MENU_ITEM = "menuItem"
         const val INTENT_EXTRA_NEW_CART_ITEM = "newCartItem"
+        const val NEW_CART_ITEM_CODE = 1
         const val INTENT_EXTRA_CART = "cart"
     }
 
@@ -51,10 +48,16 @@ class MenuListActivity : AppCompatActivity(), MenuListRecyclerViewClickListener 
         binding = ActivityMenuListBinding.inflate(LayoutInflater.from(this))
         setContentView(binding.root)
 
-        launcher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                resultHandler(result)
-            }
+        // Activity Result Launchers
+        cartActivityLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            result -> onCartResult(result)
+        }
+
+        menuItemDetailActivityLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            result -> onFullItemResult(result)
+        }
+
+
         menuList = loadMenuListData()
 
         // Create the menu List and adapter
@@ -75,15 +78,31 @@ class MenuListActivity : AppCompatActivity(), MenuListRecyclerViewClickListener 
             R.id.card_menu_list_item -> {
                 showMenuItemDetail(payload)
             }
-
-            /*
-            R.id.button_menu_cart_open -> {
-                openCart()
-            } */
         }
     }
 
-    private fun resultHandler(result: ActivityResult) {
+    override fun onResume() {
+        rebuildFragment()
+        super.onResume()
+    }
+
+    fun onCartResult(result: ActivityResult) {
+        if(result.resultCode == RESULT_OK) {
+           val newCart = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+               result.data?.getParcelableExtra(INTENT_EXTRA_CART, Cart::class.java)
+           } else {
+                result.data?.getParcelableExtra(INTENT_EXTRA_CART)
+           }
+
+            if(newCart != null) {
+                cart.items.clear()
+                cart.items.addAll(newCart.items)
+                cart.calculateTotalPrice()
+            }
+        }
+    }
+
+    fun onFullItemResult(result: ActivityResult) {
         if (result.resultCode == RESULT_OK) {
             val newMenuItem = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 result.data?.getParcelableExtra(
@@ -94,10 +113,9 @@ class MenuListActivity : AppCompatActivity(), MenuListRecyclerViewClickListener 
                 result.data?.getParcelableExtra(INTENT_EXTRA_NEW_CART_ITEM)
             }
 
+            if(cart.items.contains(newMenuItem))
             cart.items.add(newMenuItem!!)
             cart.totalPrice = cart.totalPrice + (newMenuItem.price * newMenuItem.quantity)
-
-            showCartCard()
         }
     }
 
@@ -114,22 +132,32 @@ class MenuListActivity : AppCompatActivity(), MenuListRecyclerViewClickListener 
     private fun showMenuItemDetail(item: MenuListItem) {
         val menuItemIntent = Intent(this, MenuItemDetail::class.java)
         menuItemIntent.putExtra(INTENT_EXTRA_MENU_ITEM, item)
-        launcher.launch(menuItemIntent)
+        menuItemDetailActivityLauncher.launch(menuItemIntent)
     }
 
-    fun openCart() {
+    fun launchCart() {
         val cartIntent = Intent(this, CartActivity::class.java)
         cartIntent.putExtra(INTENT_EXTRA_CART, cart)
-        launcher.launch(cartIntent)
+        cartActivityLauncher.launch(cartIntent)
     }
 
     private fun showCartCard() {
-        if(cart.items.size > 0) {
-            val totalPriceBundle = bundleOf("totalPrice" to cart.totalPrice)
+        if (cart.items.size > 0) {
+            var totalPriceBundle = bundleOf("totalPrice" to cart.totalPrice)
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
                 add<CardCartFragment>(R.id.fragment_card_cart_container, args = totalPriceBundle)
             }
         }
+    }
+
+    private fun rebuildFragment() {
+        val existingFragment = supportFragmentManager.findFragmentById(R.id.fragment_card_cart_container)
+
+        existingFragment?.let {
+            supportFragmentManager.beginTransaction().remove(it).commit()
+        }
+
+        showCartCard()
     }
 }

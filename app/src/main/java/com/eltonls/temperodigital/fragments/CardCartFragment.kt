@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.eltonls.temperodigital.R
 import com.eltonls.temperodigital.activities.menuList.MenuListActivity
 import com.eltonls.temperodigital.databinding.FragmentCardCartBinding
 import java.util.Locale
@@ -28,7 +27,7 @@ class CardCartFragment : Fragment() {
         val totalPrice = arguments?.getFloat("totalPrice")
 
         binding.buttonOpenCart.setOnClickListener() {
-            activity.openCart()
+            activity.launchCart()
         }
 
         if(totalPrice != null) {

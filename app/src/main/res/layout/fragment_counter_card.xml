@@ -24,17 +24,16 @@
             app:tint="?attr/colorTertiary" />
 
 
-        <TextView
-            android:id="@+id/text_counter"
-            android:layout_width="match_parent"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textinput_counter"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:fontFamily="@font/quicksand"
-            android:paddingHorizontal="3dp"
+            android:inputType="number"
             android:text="0"
             android:textAlignment="center"
             android:textColor="?attr/colorTertiary"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <ImageButton
             android:id="@+id/button_menu_item_detail_add"
