@@ -113,7 +113,17 @@ class MenuListActivity : AppCompatActivity(), MenuListRecyclerViewClickListener 
                 result.data?.getParcelableExtra(INTENT_EXTRA_NEW_CART_ITEM)
             }
 
-            if(cart.items.contains(newMenuItem))
+            if(newMenuItem == null) {
+                return
+            }
+
+            val equalElement = cart.items.find { newMenuItem.name == it.name }
+            if(equalElement != null) {
+                equalElement.quantity += newMenuItem.quantity
+                cart.totalPrice = cart.totalPrice + (newMenuItem.price * newMenuItem.quantity)
+                return
+            }
+
             cart.items.add(newMenuItem!!)
             cart.totalPrice = cart.totalPrice + (newMenuItem.price * newMenuItem.quantity)
         }
